@@ -3,7 +3,7 @@ Node GraphQL JWT Todo App
 # Setup
 Run following command to install required packages
 
-    npx sequelize-cli db:migrate
+    npm i
 
 
 
