@@ -16,7 +16,7 @@ module.exports = {
       if (user) {
         throw new AuthenticationError('Already Registered!..');
       }
-      return User.create({ firstName: name, email, password: bcrypt.hashSync(password, 8) });
+      return User.create({ name, email, password: bcrypt.hashSync(password, 8) });
     },
 
     async login(root, { input }, context) {
