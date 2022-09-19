@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Todo.init({
-    todoItem: DataTypes.STRING,
+    title: DataTypes.STRING,
     isCompleted: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER
   }, {
