@@ -4,6 +4,7 @@
   "description": "jwt example",
   "main": "server.js",
   "dependencies": {
+    "apollo-server-core": "^3.10.2",
     "apollo-server-express": "^3.10.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -14,6 +15,7 @@
     "sequelize": "^6.22.1"
   },
   "devDependencies": {
+    "apollo-server": "^3.10.2",
     "pg": "^8.8.0",
     "sequelize-cli": "^6.4.1"
   },
