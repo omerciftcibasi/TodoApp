@@ -10,7 +10,7 @@ module.exports = gql`
  }
 
  extend type Mutation {
-     signUp(input: SingUpInput!): SignUpResponse
+     signUp(input: SignUpInput!): SignUpResponse
      login(input: LoginInput!): LoginResponse
  }
 
@@ -20,7 +20,7 @@ module.exports = gql`
     email: String!
  }
 
- input SingUpInput {
+ input SignUpInput {
      name: String!
      email: String!
      password: String!

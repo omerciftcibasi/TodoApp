@@ -16,7 +16,7 @@ module.exports = {
       if (!todo) {
         throw new Error('Item Notfound...');
       }
-      var updated =  await Todo.update({isCompleted: true}, { where:{ id } });
+      var updated =  await Todo.update({isCompleted: isCompleted}, { where:{ id } });
       var isSucceded = updated ? true : false;
       
       return isSucceded;
@@ -39,14 +39,15 @@ module.exports = {
 
   Query : {
     async listTodos(root, args, context) {
-      const { userId, isCompleted } = args;
+      const userId= context.user.id
+      const { isCompleted } = args;
       var query = { userId: { [Op.eq] : userId }};
       if (isCompleted !== undefined) {
         query = { userId: { [Op.eq] : userId }, isCompleted : { [Op.eq]: isCompleted}};
       }
      
-
-      return await Todo.findAll({where : query } );
+      return await Todo.findAll({where : query, order: [
+        ['id', 'DESC']] } );
     },
   }
 };

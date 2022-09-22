@@ -16,7 +16,8 @@ module.exports = gql`
  }
 
  extend type Query {
-    listTodos(userId: Int!, isCompleted: Boolean) : [Todo]
+    listTodos:[Todo]
  }
+
 
 `;
