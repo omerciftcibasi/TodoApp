@@ -1,0 +1,16 @@
+{
+    "extends": [ "airbnb-base", "eslint:recommended"],
+    "rules": {
+        "comma-dangle": 0,
+        "no-unused-vars": "warn",
+        "no-console": 1,
+        "no-unexpected-multiline": "warn",
+        "import/no-named-as-default": 0,
+        "import/no-named-as-default-member": 0,
+        "no-alert": "off"
+    },
+    "env": {
+        "browser": false,
+        "node": true
+    }    
+}

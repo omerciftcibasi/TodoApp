@@ -1,14 +1,15 @@
-const { User } = require('../../models');
+/* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
-const config = require("../../config/auth.config");
-const { AuthenticationError } = require('apollo-server-express')
-const publicEndpoints = require("../../config/publicEndpoints")
+const { AuthenticationError } = require('apollo-server-express');
+const { User } = require('../../models');
+const config = require('../../config/auth.config');
+const publicEndpoints = require('../../config/publicEndpoints');
 
-
+// eslint-disable-next-line no-unused-vars
 const verifyToken = async (req, res, next) => {
   const token = (req.headers && req.headers.authorization) || '';
   try {
-    if (!token) return res.status(403).send({ message: "No token provided!" });
+    if (!token) return res.status(403).send({ message: 'No token provided!' });
     const { id } = await jwt.verify(token, config.secret);
 
     const user = await User.findByPk(id);
@@ -20,10 +21,10 @@ const verifyToken = async (req, res, next) => {
 
 module.exports = async ({ req, res, next }) => {
   if (req.body && publicEndpoints.indexOf(req.body.operationName) !== -1) {
-    return
+    return;
   }
-  
-  const user = await verifyToken(req, res, next)
+
+  const user = await verifyToken(req, res, next);
 
   return { user };
 };

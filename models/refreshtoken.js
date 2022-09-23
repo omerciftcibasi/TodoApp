@@ -1,10 +1,11 @@
-'use strict';
-const config = require(__dirname + "/../config/auth.config");
-const { v4: uuidv4 } = require("uuid");
+/* eslint-disable import/no-dynamic-require */
+const config = require(`${__dirname}/../config/auth.config`);
+const { v4: uuidv4 } = require('uuid');
 
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class RefreshToken extends Model {
     /**
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      RefreshToken.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'id'  });
+      RefreshToken.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'id' });
     }
   }
   RefreshToken.init({
@@ -27,13 +28,14 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   RefreshToken.createToken = async function (user) {
-    let expiredAt = new Date();
+    const expiredAt = new Date();
 
     expiredAt.setSeconds(expiredAt.getSeconds() + config.jwtRefreshExpiration);
 
-    let _token = uuidv4();
+    // eslint-disable-next-line no-underscore-dangle
+    const _token = uuidv4();
 
-    let refreshToken = await this.create({
+    const refreshToken = await this.create({
       refreshToken: _token,
       userId: user.id,
       expiryDate: expiredAt.getTime(),
@@ -42,9 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     return refreshToken.refreshToken;
   };
 
-  RefreshToken.verifyExpiration = (token) => {
-    return token.expiryDate.getTime() < new Date().getTime();
-  };
+  RefreshToken.verifyExpiration = (token) => token.expiryDate.getTime() < new Date().getTime();
 
   return RefreshToken;
 };

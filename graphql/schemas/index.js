@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
-const userType = require('./user')
-const todoType = require('./todo')
-const refreshTokenType = require('./refreshToken')
+const userType = require('./user');
+const todoType = require('./todo');
+const refreshTokenType = require('./refreshToken');
 
 const rootType = gql`
  type Query {

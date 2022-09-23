@@ -1,1 +1,1 @@
-module.exports =  ['login', 'signUp', 'refreshAccessToken']
+module.exports = ['login', 'signUp', 'refreshAccessToken'];
