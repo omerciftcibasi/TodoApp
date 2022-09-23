@@ -2,6 +2,7 @@ const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 const config = require("../../config/auth.config");
 const { AuthenticationError } = require('apollo-server-express')
+const publicEndpoints = require("../../config/publicEndpoints")
 
 
 const verifyToken = async (req, res, next) => {
@@ -18,7 +19,7 @@ const verifyToken = async (req, res, next) => {
 };
 
 module.exports = async ({ req, res, next }) => {
-  if (req.body && (req.body.operationName === 'login' || req.body.operationName === 'signUp' || req.body.operationName === 'refreshAccessToken') ) {
+  if (req.body && publicEndpoints.indexOf(req.body.operationName) !== -1) {
     return
   }
   
