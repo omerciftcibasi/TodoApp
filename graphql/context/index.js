@@ -1,13 +1,15 @@
 const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 const config = require("../../config/auth.config");
-
 const { AuthenticationError } = require('apollo-server-express')
 
-const verifyToken = async (token) => {
+
+const verifyToken = async (req, res, next) => {
+  const token = (req.headers && req.headers.authorization) || '';
   try {
-    if (!token) return null;
+    if (!token) return res.status(403).send({ message: "No token provided!" });
     const { id } = await jwt.verify(token, config.secret);
+
     const user = await User.findByPk(id);
     return user;
   } catch (error) {
@@ -15,9 +17,12 @@ const verifyToken = async (token) => {
   }
 };
 
-module.exports = async ({ req }) => {
-  const token = (req.headers && req.headers.authorization) || '';
-   const user = await verifyToken(token)
+module.exports = async ({ req, res, next }) => {
+  if (req.body && (req.body.operationName === 'login' || req.body.operationName === 'signUp' || req.body.operationName === 'refreshAccessToken') ) {
+    return
+  }
+  
+  const user = await verifyToken(req, res, next)
 
   return { user };
 };
